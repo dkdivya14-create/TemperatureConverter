@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="stylesheets1.css">
+<body>
+    <div class="main_container">
+        <div class="input_section">
+            <h2>Enter Temperature</h2>
+            <div class="input_flex">
+                <label for="degree">Degree</label>
+                <div class="input1">
+                    <input type="number" id="degree" value="0">
+                    <div class="input2">
+                        <select id="unit">
+                            <option value="celsius">&#176 C</option>
+                            <option value="fahrenheit">&#176 F</option>
+                            <option value="kelvin">K</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="input_flex">
+                <label for="convert_to">Convert In</label>
+                <select id="convert_to">
+                    <option value="fahrenheit">Fahrenheit (&#176)</option>
+                    <option value="celsius">Celsius (&#176)</option>
+                    <option value="kelvin">Kelvin (K)</option>
+                </select>
+            </div>
+            <button class="convert-button" onclick="temperatureConverter()">Convert →</button>
+        </div>
+        <div class="output">
+            <span id="result">32</span><sup id="result-unit">&#176 F</sup>
+        </div>
+    </div>
+
+    <script>
+        function temperatureConverter() {
+            const degree = parseFloat(document.getElementById("degree").value);
+            const unit = document.getElementById("unit").value;
+            const ct = document.getElementById("convert_to").value;
+            const result = document.getElementById("result");
+            const resultUnit = document.getElementById("result-unit");
+            let result1;
+            if (unit === ct) {
+                result.textContent = degree;
+                if (unit === "celsius") {
+                    resultUnit.textContent = "°C";
+                } else if (unit === "fahrenheit") {
+                    resultUnit.textContent = "°F";
+                } else {
+                    resultUnit.textContent = "K";
+                }
+                return;
+            }
+
+            if (unit === "celsius") {
+                if (ct === "fahrenheit") {
+                    result1 = (degree * 9/5) + 32;
+                    resultUnit.textContent = "°F";
+                } else if (ct === "kelvin") {
+                    result1 = degree + 273.15;
+                    resultUnit.textContent = "K";
+                }
+            } else if (unit === "fahrenheit") {
+                if (ct === "celsius") {
+                    result1 = (degree - 32) * 5/9;
+                    resultUnit.textContent = "°C";
+                } else if (ct === "kelvin") {
+                    result1 = (degree - 32) * 5/9 + 273.15;
+                    resultUnit.textContent = "K";
+                }
+            } else if (unit === "kelvin") {
+                if (ct === "celsius") {
+                    result1 = degree - 273.15;
+                    resultUnit.textContent = "°C";
+                } else if (ct === "fahrenheit") {
+                    result1 = (degree - 273.15) * 9/5 + 32;
+                    resultUnit.textContent = "°F";
+                }
+            }
+
+           result.textContent = result1.toFixed(2);
+        }
+    </script>
+</body>
+</html>
